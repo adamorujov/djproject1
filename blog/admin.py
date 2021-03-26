@@ -21,7 +21,7 @@ class YorumAdmin(admin.ModelAdmin):
 
 admin.site.register(YorumModel, YorumAdmin)
 
-class IletisimAdmin(admin.IletisimAdmin):
+class IletisimAdmin(admin.ModelAdmin):
     list_display = (
         'email', 'olusturulma_tarihi',
     )
