@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ yazi.baslik }} {% endblock %}
+
+{% block content %} 
+  <div class="col-9">
+      <div class="card my-3 mx-3">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="{{ yazi.resim.url }}" style="width:100%" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title" style="width:50%; float:left">{{ yazi.baslik }}</h5>
+                <p class="card-text"><small class="text-muted">{{ yazi.duzenlenme_tarihi|timesince }} </small></p>
+                {% for kategori in yazi.kategoriler.all %}
+                <small>{{ kategori }}</small>
+                {% endfor %}
+                <small>, {{ yazi.yazar }}</small>
+                <p class="card-text">{{ yazi.icerik|safe }}</p>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
+
+{% endblock %}
+                

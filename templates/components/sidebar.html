@@ -1,8 +1,13 @@
 <div class="col-3">
     <div class="list-group m-3" id="list-tab" role="tablist">
-        <a class="list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
-        <a class="list-group-item list-group-item-action" id="list-profile-list" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-        <a class="list-group-item list-group-item-action" id="list-messages-list" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
-        <a class="list-group-item list-group-item-action" id="list-settings-list" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
-      </div>
+        {% if user.is_authenticated %}
+        <a class="list-group-item list-group-item-action" id="list-profil-list" data-bs-toggle="list" href="#profil-duzenle" role="tab" aria-controls="profilduzenle">Profil Duzenle</a>
+        <a class="list-group-item list-group-item-action" id="list-sifre-list" data-bs-toggle="list" href="#sifre-degistir" role="tab" aria-controls="sifredegistir">Sifre Degistir</a>
+        <a class="list-group-item list-group-item-action" id="list-yaziekle-list" data-bs-toggle="list" href="#yazi-ekle" role="tab" aria-controls="yaziekle">Yazi Ekle</a>
+        <a class="list-group-item list-group-item-action" id="list-yazilarim-list" data-bs-toggle="list" href="{% url 'yazilarim' %}" role="tab" aria-controls="yazilarim">Yazilarim</a>
+        <a class="list-group-item list-group-item-action" id="list-cikis-list" data-bs-toggle="list" href="#cikis-yap" role="tab" aria-controls="cikisyap">Cikis Yap</a>
+        {% else %}
+        Login
+        {% endif %}
+    </div>
 </div>
