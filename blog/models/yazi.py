@@ -7,6 +7,7 @@ from blog.models.abstract_models import DateAbstractModel
 
 class YazilarModel(DateAbstractModel):
     resim = models.ImageField(upload_to='yazi_resimleri')
+    detay_resim = models.ImageField(upload_to='yazi_resimleri', default="")
     baslik = models.CharField(max_length=50)
     icerik = RichTextField()
     slug = AutoSlugField(populate_from='baslik', unique=True)

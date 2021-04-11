@@ -1,10 +1,28 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %} Iletisim {% endblock %}
 
 {% block content %} 
 
 <div class="col-9">
-    Iletisim sayfasi
+    <form class="mx-3 my-3" action="{% url 'iletisim' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">{{ form.email.label }}</label><br>
+          {{ form.email }}
+          <div id="emailHelp" class="form-text">We'll never share email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputName1" class="form-label"> {{ form.isim_soyisim.label }}</label><br>
+          {{ form.isim_soyisim }}
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="exampleInputMessage1"> {{ form.mesaj.label }}</label><br>
+          {{ form.mesaj }}
+        </div>
+        <button type="submit" class="btn btn-primary">Gonder</button>
+    </form>
 </div>
+
 {% endblock %}

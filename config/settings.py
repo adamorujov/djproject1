@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'blog',
     #third party apps
     'ckeditor',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
+
+CRISPY_TEMPLATE_PACK = 'uni_form'

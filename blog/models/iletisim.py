@@ -12,4 +12,4 @@ class IletisimModel(models.Model):
         verbose_name_plural = 'Iletisim'
 
     def __str__(self):
-        self.email
+        return self.email
