@@ -12,13 +12,21 @@
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title" style="width:50%; float:left">{{ yazi.baslik }}</h5>
+                <h5 class="card-title" style="width:50%; float:left">
+                  <a href="{% url 'detay' yazi.slug %}" style="text-decoration:none;">{{ yazi.baslik }}</a>
+                </h5>
                 <p class="card-text"><small class="text-muted">{{ yazi.duzenlenme_tarihi|timesince }} </small></p>
                 {% for kategori in yazi.kategoriler.all %}
                 <small>{{ kategori }}</small>
                 {% endfor %}
                 <small>, {{ yazi.yazar }}</small>
                 <p class="card-text">{{ yazi.icerik|safe|truncatechars_html:150 }}</p>
+                {% if yazi.yazar == request.user %}
+                <p>
+                  <a class="btn btn-primary" href="{% url 'yaziguncelle' yazi.slug %}">Duzenle</a>
+                  <a class="btn btn-danger" href="{% url 'yazisil' yazi.slug %}">Sil</a>
+                </p>
+                {% endif %}
               </div>
             </div>
           </div>

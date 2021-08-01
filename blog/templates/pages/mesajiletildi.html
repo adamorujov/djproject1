@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %} Mesaj iletildi {% endblock %}
+
+
+
+{% block content %} 
+
+
+<div class="col-9">
+    <div class="alert alert-info my-3" style="position:relative;"> <b class="mx-3">{{ mesajiletildi }}</b>
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_xsgvajuv.json"  background="transparent"  speed="1"  style="width: 150px; height: 150px; display:inline; padding:0; position:absolute; top:-50px; left:80%;"  loop  autoplay></lottie-player>
+    </div>
+    <div><a href="{% url 'iletisim' %}">Iletisim sayfaysina geri don</a></div>
+</div>
+
+{% endblock %}

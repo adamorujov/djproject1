@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %} Mesajlar {% endblock %}
+
+{% block content %} 
+<div class="col-9">
+   <div class="col-4 my-2">
+    <ul class="list-group ">
+        {% for mesaj in mesajlar %}
+        <li class="list-group-item d-flex justify-content-between align-items-start">
+            <a>
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">{{ mesaj.gonderen.username }}</div>
+                    {{ mesaj.mesaj|truncatechars_html:10 }}
+                </div>
+            </a>
+          <span class="badge bg-primary rounded-pill">{{ mesajsayi }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+   </div>
+   <div class="col-5"></div>
+</div>
+{% endblock %}

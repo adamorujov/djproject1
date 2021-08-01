@@ -11,21 +11,28 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import environ
+
+env = environ.Env()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+environ.Env().read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd^!rg6i9q&yguuwm^l=us9zj_7lz8$+8cx23b@u@+ku50c91aq'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -44,7 +51,14 @@ INSTALLED_APPS = [
     #third party apps
     'ckeditor',
     'crispy_forms',
+    'django_messages',
+    'django.contrib.sites',
+    'environ',
+    'sentry_sdk',
+    'storages',
 ]
+
+DJANGO_MESSAGES_NOTIFY = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,18 +94,18 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}
+}"""
 
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
+"""AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
@@ -104,15 +118,15 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-]
+]"""
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'tr'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Baku'
 
 USE_I18N = True
 
@@ -136,3 +150,46 @@ STATICFILES_DIRS = [
 ]
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django_messages.context_processors.inbox',
+)
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ademorujov@gmail.com'
+EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
+
+
+
+LOGGING = {
+    'version' : 1,
+    'disable_existing_loggers' : False,
+    'formatters': {
+        'basit_ifade' : {
+            'format' : '{asctime} {levelname} {message} {name}',
+            'style' : '{',
+        }
+    },
+    'handlers' : {
+        'console' : {
+            'class' : 'logging.StreamHandler',
+        },
+        'file' : {
+            'class' : 'logging.FileHandler',
+            'filename' : 'logs/konu_okuma.log',
+            'formatter' : 'basit_ifade',
+        },
+    },
+    'loggers' : {
+        'konu_okuma' : {
+            'handlers' : ['console', 'file',],
+            'level' : 'INFO',
+        }
+    },
+}
+
+

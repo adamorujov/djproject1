@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %} {{ yazi.baslik }} {% endblock %}
 
@@ -15,7 +16,7 @@
             <div class="col-md-8">
               <div class="card-body">
                 <h1 class="card-title" style="width:100%; float:left;">{{ yazi.baslik }}</h1>
-                <p class="card-text"><small class="text-muted">{{ yazi.duzenlenme_tarihi|timesince }} </small></p>
+                <p class="card-text"><small class="text-muted">{{ yazi.olusturulma_tarihi|timesince }} ({{ yazi.bakis_sayi }} kez bakildi) </small></p>
                 {% for kategori in yazi.kategoriler.all %}
                 <small>{{ kategori }}</small>
                 {% endfor %}
@@ -27,6 +28,17 @@
       </div>
       <div class="container my-5">
           <h3 class="mx-3" style="font-size:125%">Yorumlar <small>({{ yorum_sayi }})</small></h3>
+          {% if request.user.is_authenticated %}
+          <form method="POST">
+            {% csrf_token %}
+            {{ yorum_ekle_form.media }}
+            {{ yorum_ekle_form|crispy }}
+            <input type="hidden" name="answer" value="A">
+            <input class="btn btn-primary" type="submit" value="Yorum Yap">
+          </form>
+          {% else %}
+          <p class="m-3">Yorum yapmak icin uye girisi yapiniz</p>
+          {% endif %}
           {% for yorum in yorumlar %}
           <div class="media border p-3">
             {% if yorum.yazan.avatar %}
@@ -37,6 +49,20 @@
             <div class="media-body float-left my-3">
               <h4 style="font-size:100%">{{ yorum.yazan.username }} <small><i>Posted {{ yorum.duzenlenme_tarihi|timesince }} ago</i></small></h4>
               <p>{{ yorum.yorum }}</p>
+              {% if yorum.yazan == request.user %}
+              <form method="POST">
+                <a href="{% url 'yorumsil' yorum.id %}">Yorumu Sil</a>
+              </form>
+              {% else %}
+              <button class="btn btn-outline-primary border-0 p-0" onclick="document.getElementById('cvpyz').style.display='block'" type="button">Cevap yaz</button>
+              <form id="cvpyz" method="POST" style="display:none">
+                {% csrf_token %}
+                {{ yorum_ekle_form.media }}
+                {{ yorum_ekle_form|crispy }}
+                <input type="hidden" name="answer" value="{{ yorum.id }}">
+                <input class="btn btn-primary" type="submit" value="Cevap yaz">
+              </form>
+              {% endif %}
               {% for cevap in yorum.cevaplar.all %}
               <div class="media p-3">
                 {% if cevap.yazan.avatar %}
@@ -45,8 +71,13 @@
                 <img src="{% static 'img\avatar-big.png' %}" alt="{{ cevap.yazan.username }}" class="mr-3 mt-3 rounded-circle float-left" style="width:60px;">
                 {% endif %}
                 <div class="media-body float-left my-3">
-                  <h4 style="font-size:100%">{{ cevap.yazan.username }} <small><i>Posted {{ cevap.duzenlenme_tarihi|timesince }} ago </i></small></h4>
-                  <p>{{ cevap.cevap }}</p>
+                  <h4 style="font-size:100%">{{ cevap.yazan.username }} <small><i>Replied {{ cevap.duzenlenme_tarihi|timesince }} ago </i></small></h4>
+                  <p>{{ cevap.yorum }}</p>
+                  {% if cevap.yazan == request.user %}
+                  <form method="POST">
+                    <a href="{% url 'yorumsil' cevap.id %}">Cevabi Sil</a>
+                  </form>
+                  {% endif %}
                 </div>
               </div>
               {% endfor %}

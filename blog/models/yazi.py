@@ -11,6 +11,7 @@ class YazilarModel(DateAbstractModel):
     baslik = models.CharField(max_length=50)
     icerik = RichTextField()
     slug = AutoSlugField(populate_from='baslik', unique=True)
+    bakis_sayi = models.IntegerField(default=0)
     kategoriler = models.ManyToManyField(KategoriModel, related_name='yazi')
     yazar = models.ForeignKey('account.CustomUserModel', on_delete=models.CASCADE, related_name='yazilar')
 

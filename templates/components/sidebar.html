@@ -1,13 +1,17 @@
+{% load users_list %}
+{% users_list as kullanicilar %}
 <div class="col-3">
     <div class="list-group m-3" id="list-tab" role="tablist">
         {% if user.is_authenticated %}
-        <a class="list-group-item list-group-item-action" id="list-profil-list" data-bs-toggle="list" href="#profil-duzenle" role="tab" aria-controls="profilduzenle">Profil Duzenle</a>
-        <a class="list-group-item list-group-item-action" id="list-sifre-list" data-bs-toggle="list" href="#sifre-degistir" role="tab" aria-controls="sifredegistir">Sifre Degistir</a>
-        <a class="list-group-item list-group-item-action" id="list-yaziekle-list" data-bs-toggle="list" href="#yazi-ekle" role="tab" aria-controls="yaziekle">Yazi Ekle</a>
-        <a class="list-group-item list-group-item-action" id="list-yazilarim-list" data-bs-toggle="list" href="{% url 'yazilarim' %}" role="tab" aria-controls="yazilarim">Yazilarim</a>
-        <a class="list-group-item list-group-item-action" id="list-cikis-list" data-bs-toggle="list" href="#cikis-yap" role="tab" aria-controls="cikisyap">Cikis Yap</a>
+        <a class="list-group-item list-group-item-action" id="list-profil-list"  href="{% url 'account:mesajlar' %}" role="tab" >Mesajlar</a>
+        <a class="list-group-item list-group-item-action" id="list-profil-list"  href="{% url 'sendmail' %}" role="tab" >Email gonder</a>
+        <a class="list-group-item list-group-item-action" id="list-profil-list"  href="{% url 'account:userslist' %}" role="tab" >Kullanicilar</a>
+        {% for kullanici in kullanicilar %}
+        <a class="list-group-item list-group-item-action" id="list-profil-list"  href="{% url 'account:hesabziyaretet' kullanici.username %}" role="tab" >{{ kullanici.first_name }} {{ kullanici.last_name }}</a>
+        {% endfor %}
         {% else %}
-        Login
+        <a class="list-group-item list-group-item-action" id="list-profil-list" href="{% url 'account:kayit' %}" role="tab">Kayit ol</a>
+        <a class="list-group-item list-group-item-action" id="list-sifre-list"  href="{% url 'account:giris' %}" role="tab">Uye Girisi</a>
         {% endif %}
     </div>
 </div>

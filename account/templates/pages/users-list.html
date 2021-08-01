@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} Users {% endblock %}
+
+{% block content %} 
+
+<div class="col-9 my-3">
+    {% for kullanici in object_list %}
+    <div class="card m-1" style="width: 18rem; float:left;">
+      <!--<img src="{{ kullanici.resim.url }}" class="card-img-top" style="width:100%" alt="...">-->
+      <div class="card-body">
+        <h5 class="card-title">{{ kullanici.first_name }} {{ kullanici.last_name }}</small></h5>
+        <small>{{ kullanici.username }}</small>
+        <p class="card-text">{{ kullanici.email }}</p>
+        <a href="{% url 'account:hesabziyaretet' kullanici.username %}" class="btn btn-primary">Hesaba git</a>
+      </div>
+    </div>
+    {% empty %}
+    <p>Hic kullanici yok</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

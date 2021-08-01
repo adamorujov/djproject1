@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Duzenle | {{ yazi.baslik }} {% endblock %}
+
+{% block content %} 
+
+<div class="col-9">
+    <form class="mx-3 my-3" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Duzenle</button>
+    </form>
+</div>
+{% endblock %}

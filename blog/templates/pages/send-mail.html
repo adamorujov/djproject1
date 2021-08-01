@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Gmail ile email gonder {% endblock %}
+
+{% block content %} 
+
+<div class="col-9">
+    <form class="mx-3 my-3" action="{% url 'sendmail' %}" method="POST">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Send</button>
+    </form>
+</div>
+
+{% endblock %}

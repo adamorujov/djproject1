@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Iletisim {% endblock %}
+
+{% block content %} 
+
+<div class="col-9">
+    <form class="mx-3 my-3" action="{% url 'yaziekle' %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Gonder</button>
+    </form>
+</div>
+{% endblock %}

@@ -17,7 +17,7 @@ def anasayfa(request):
         netice = len(yazilar)
 
     sayfa = request.GET.get('sayfa')
-    paginator = Paginator(yazilar, 1)
+    paginator = Paginator(yazilar, 3)
     context = {
         'yazilar' : paginator.get_page(sayfa),
         'netice' : netice,

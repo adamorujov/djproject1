@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{ kullanici.first_name }} {{ kullanici.last_name }} {% endblock %}
+
+{% block content %}
+<div class="col-9">
+    <div class="mx-1 my-3">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img 
+                {% if kullanici.avatar %}
+                src="{{ kullanici.avatar.url }}"
+                {% else %}
+                src="{% static 'img/avatar-big.png' %}" 
+                {% endif %}
+                class="img-fluid m-3" style="border-radius: 50%;" alt="...">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title mx-4">{{ kullanici.first_name }} {{ kullanici.last_name }}</h5>
+                  <p class="card-text mx-4"><small class="text-muted"> 
+                    last seen {{ kullanici.last_seen }}
+                  </small></p>
+                  <p class="card-text">
+                  <table class="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col" style="text-align: center;">Post</th>
+                        <th scope="col" style="text-align: center;">Yorum</th>
+                        <th scope="col" style="text-align: center;">Bakis</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row" style="text-align: center;">{{ postsayi }}</th>
+                        <td style="text-align: center;">{{ yorumsayi }}</td>
+                        <td style="text-align: center;">{{ bakissayi }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </p>
+                {% if kullanici != request.user %}
+                <form>
+                  <input class="btn btn-primary mx-3 my-1" style="width:90%" type='submit' value='Izle'>
+                </form>
+                {% else %}
+                {% endif %}
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="my-3 mx-1">
+      {% for yazi in yazilar %}
+      <div class="card m-1" style="width: 18rem; float:left;">
+        <!--<img src="{{ yazi.resim.url }}" class="card-img-top" style="width:100%" alt="...">-->
+        <div class="card-body">
+          <h5 class="card-title">{{ yazi.baslik }}</small></h5>
+          <small>{{ yazi.duzenlenme_tarihi }}</small>
+          <p class="card-text">{{ yazi.icerik|safe|truncatechars_html:20 }}</p>
+          <a href="{% url 'detay' yazi.slug %}" class="btn btn-primary">Yazini Gor</a>
+        </div>
+      </div>
+      {% empty %}
+      <p>Hic yazi yok</p>
+      {% endfor %}
+    </div>
+</div>
+{% endblock %}

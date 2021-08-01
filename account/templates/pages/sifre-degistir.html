@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %} Sifre degistir {% endblock %}
+
+{% block content %} 
+
+<div class="col-9">
+    {% if messages %}
+    {% for message in messages %}
+    <div {% if message.tags %} class="{{ message.tags }} alert alert-success m-3" role='alert' {% endif %}>{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+    <form class="mx-3 my-3" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Sifreni degistir</button>
+    </form>
+</div>
+{% endblock %}

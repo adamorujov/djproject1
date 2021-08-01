@@ -3,3 +3,9 @@ from . import anasayfa
 from . import kategori
 from . import yazilarim
 from . import detay
+from . import mesajiletildi
+from . import yazi_ekle
+from . import send_maill
+from . import yazi_guncelle
+from . import yazi_sil
+from . import yorum_sil

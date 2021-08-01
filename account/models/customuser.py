@@ -1,10 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-# Create your models here.
+from datetime import datetime
+from django.utils import timezone
 
 class CustomUserModel(AbstractUser):
     avatar = models.ImageField(upload_to='avatar/', blank=True, null=True)
+    last_seen = models.DateTimeField(default=datetime.now, blank=True)
 
     class Meta:
         db_table = 'user'
