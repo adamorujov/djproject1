@@ -51,14 +51,13 @@ INSTALLED_APPS = [
     #third party apps
     'ckeditor',
     'crispy_forms',
-    'django_messages',
     'django.contrib.sites',
     'environ',
     'sentry_sdk',
     'storages',
 ]
 
-DJANGO_MESSAGES_NOTIFY = True
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -151,9 +150,6 @@ STATICFILES_DIRS = [
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django_messages.context_processors.inbox',
-)
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
