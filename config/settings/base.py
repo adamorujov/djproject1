@@ -150,6 +150,7 @@ STATICFILES_DIRS = [
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
+SITE_ID = 1
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
